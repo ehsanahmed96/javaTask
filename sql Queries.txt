@@ -1,0 +1,37 @@
+CREATE TABLE Users (
+    UserID INT PRIMARY KEY AUTO_INCREMENT,
+    UserName VARCHAR(255) NOT NULL,
+    ContactNumber VARCHAR(20),
+    EmailAdd VARCHAR(255) NOT NULL
+);
+
+-- Create Role table
+CREATE TABLE Role (
+    RoleID INT PRIMARY KEY AUTO_INCREMENT,
+   RoleName VARCHAR(255) NOT NULL
+);
+
+-- Create Permission table
+CREATE TABLE Permission (
+    PermissionID INT PRIMARY KEY AUTO_INCREMENT,
+    PermissionName VARCHAR(255) NOT NULL,
+    Description VARCHAR(255)
+);
+
+-- Create User_Role junction table
+CREATE TABLE User_Role (
+    UserID INT,
+    RoleID INT,
+    PRIMARY KEY (UserID, RoleID),
+    FOREIGN KEY (UserID) REFERENCES User(UserID) ON DELETE CASCADE,
+    FOREIGN KEY (RoleID) REFERENCES Role(RoleID) ON DELETE CASCADE
+);
+
+-- Create Role_Permission junction table
+CREATE TABLE Role_Permission (
+    RoleID INT,
+    PermissionID INT,
+    PRIMARY KEY (RoleID, PermissionID),
+    FOREIGN KEY (RoleID) REFERENCES Role(RoleID) ON DELETE CASCADE,
+    FOREIGN KEY (PermissionID) REFERENCES Permission(PermissionID) ON DELETE CASCADE
+);
